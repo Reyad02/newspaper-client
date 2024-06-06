@@ -42,6 +42,7 @@ const Signup = () => {
                                     .then(res => {
                                         if (res.data.insertedId) {
                                             Swal.fire({
+                                                position: "center",
                                                 title: "Registered!",
                                                 text: "Successfully registered!",
                                                 icon: "success",

@@ -7,16 +7,14 @@ const Navbar = () => {
 
     const navlinks = <>
         <li><NavLink to={"/"}>Home</NavLink></li>
-        <li><a>Add Articles</a></li>
-        <li><a>All Articles</a></li>
+        <li><NavLink to={"/addArticle"}>Add Articles</NavLink></li>
+        <li><NavLink to={"allArticles"}>All Articles</NavLink></li>
         <li><a>Subscription</a></li>
         {/* {
             user && 
         } */}
         <li><a>Subscription</a></li>
-        {
-            user ? <button onClick={logOut} className="bg-red-500 text-white px-2 rounded-md hover:bg-black">Logout</button> : <NavLink to="/login" className="bg-green-500 text-black rounded-md p-2">Login</NavLink>
-        }
+
 
     </>
     return (
@@ -42,6 +40,16 @@ const Navbar = () => {
                     user ? <button className="btn">Logout</button> : <NavLink to="/login" className="btn">Login</NavLink>
                 } */}
                 {/* <a className="btn">Button</a> */}
+
+                {
+                    user ?
+                        <>
+                            <button onClick={logOut} className="bg-red-500 text-white p-2 rounded-md hover:bg-black mr-4">Logout</button>
+                            <img src={user.photoURL} alt="" className='w-10 rounded-full' />
+                        </>
+
+                        : <NavLink to="/login" className="bg-green-500 text-black rounded-md p-2">Login</NavLink>
+                }
             </div>
         </div>
     );
