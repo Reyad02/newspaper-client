@@ -1,19 +1,25 @@
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../../provider/AuthProvider';
+import usePremiumUser from '../../../../hooks/usePremiumUser';
 
 const Navbar = () => {
     const { user, loading, logOut } = useContext(AuthContext);
+    const { isPremium } = usePremiumUser(user?.email);
+
 
     const navlinks = <>
         <li><NavLink to={"/"}>Home</NavLink></li>
         <li><NavLink to={"/addArticle"}>Add Articles</NavLink></li>
         <li><NavLink to={"allArticles"}>All Articles</NavLink></li>
         <li><a>Subscription</a></li>
+        {
+            isPremium && <li><NavLink to={"premium-individual"}>Premium Article</NavLink></li>
+        }
+        <li><NavLink to={`my-article/${user?.email}`}>My Articles</NavLink></li>
         {/* {
             user && 
         } */}
-        <li><a>Subscription</a></li>
 
 
     </>

@@ -2,11 +2,14 @@ import { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import useAxiosPublic from '../hooks/useAxiosPublic';
 
 const Login = () => {
     const { signInUser } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+    // const { user }= useContext(AuthContext);
 
     const handleLogin = e => {
         e.preventDefault();
@@ -23,6 +26,24 @@ const Login = () => {
                     timer: 1500
                 });
                 const loggedInUser = userCredential.user;
+                axiosPublic.get(`/user/${loggedInUser?.email}`) //get user by email
+                            .then(res => {
+                                if (res.data) {
+                                    if (res.data?.premiumTaken > new Date().toISOString()) {
+                                        // localStorage.setItem('premium', true);
+                                        console.log("premium taken");
+
+                                    } else {
+                                        // localStorage.removeItem('premium');
+                                        axiosPublic.put(`update-user-premium/${loggedInUser?.email}`)
+                                        .then(res => {
+                                            console.log(res.data);
+                                        })
+                                        console.log("premium not taken");
+                                    }
+                                }
+                            })
+                
                 navigate(location?.state ? location?.state : "/");
                 // console.log(loggedInUser);
                 // const user = { email };

@@ -1,11 +1,11 @@
-import React from 'react';
 import Hero from '../Hero/Hero';
+import SubscriptionPlan from '../SubscriptionPlan/SubscriptionPlan';
 
 const Home = () => {
     return (
-        <div>
+        <div className='space-y-4'>
             <Hero></Hero>
-            this is home
+            <SubscriptionPlan></SubscriptionPlan>
         </div>
     );
 };
