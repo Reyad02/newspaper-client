@@ -13,7 +13,7 @@ const NewsDetails = () => {
                     <p className="py-6">{description}</p>
                     {/* <button className="btn btn-primary">Get Started</button> */}
                     <p>Author: {publisher}</p>
-                    <p>Tags: {tags.map((tag, idx)=> <div className="badge badge-primary mr-2 uppercase" key={idx}>{tag}</div>)}</p>
+                    <div>Tags: {tags.map((tag, idx)=> <div className="badge badge-primary mr-2 uppercase" key={idx}>{tag}</div>)}</div>
                 </div>
             </div>
         </div>

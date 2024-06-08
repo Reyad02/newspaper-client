@@ -17,10 +17,10 @@ const Admin = () => {
                                 <li><NavLink to="/admin/allUsers">
                                     All Users
                                 </NavLink></li>
-                                <li><NavLink to="/dashboard/addItems">
+                                <li><NavLink to="/admin/articles">
                                     All Articles
                                 </NavLink></li>
-                                <li><NavLink to="/dashboard/manageItems">
+                                <li><NavLink to="/admin/publish">
                                     Add Publishers
                                 </NavLink></li>
                             </>

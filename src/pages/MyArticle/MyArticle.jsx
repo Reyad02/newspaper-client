@@ -6,6 +6,7 @@ const MyArticle = () => {
     const [myArticles, setMyArticles] = useState([])
     const allArticles = useLoaderData();
     const axiosPublic = useAxiosPublic();
+    console.log(allArticles)
 
     const handleDelete = (id) => {
         // console.log(id);
@@ -15,9 +16,6 @@ const MyArticle = () => {
                 const filterArticles = myArticles.filter(article => article._id !== id);
                 setMyArticles(filterArticles);
             })
-
-
-
     }
 
     useEffect(() => {

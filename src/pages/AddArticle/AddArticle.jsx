@@ -4,11 +4,14 @@ import chroma from 'chroma-js';
 import { colourOptions } from './jsForSelect/jsForSelect';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import auth from '../../firebase/firebase.config';
+import { AuthContext } from '../../provider/AuthProvider';
 
 const AddArticle = () => {
     const axiosPublic = useAxiosPublic();
     const [selectedTags, setSelectedTags] = useState([]);
+    const { user } = useContext(AuthContext);
 
     const colourStyles = {
         control: (styles) => ({ ...styles, backgroundColor: 'transparent', padding: '2px' }),
@@ -90,6 +93,11 @@ const AddArticle = () => {
                     tags: tags,
                     photo: data.data.display_url,
                     description: description,
+                    author: user?.email,
+                    isPremium: "not",
+                    status: "pending",
+                    postedDate: new Date().toISOString(),
+
                 }
                 axiosPublic.post('/articles', articleInfo)
                     .then(res => {

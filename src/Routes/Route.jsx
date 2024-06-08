@@ -17,6 +17,8 @@ import UpdateNews from "../pages/UpdateNews/UpdateNews";
 import Admin from "../Layout/Admin";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import AllUsers from "../pages/AllUsers/AllUsers";
+import AdminArticles from "../pages/AdminArticles/AdminArticles";
+import AddPublisher from "../pages/AddPublisher/AddPublisher";
 
 
 
@@ -88,7 +90,17 @@ export const router = createBrowserRouter(
                     path: "allUsers",
                     element: <AdminPrivateRoute><AllUsers></AllUsers></AdminPrivateRoute>,
                     loader: () => fetch('http://localhost:5000/users')
-                }
+                },
+                {
+                    path: "articles",
+                    element: <AdminPrivateRoute><AdminArticles></AdminArticles></AdminPrivateRoute>,
+                    loader: () => fetch('http://localhost:5000/all-articles')
+                },
+                {
+                    path: "publish",
+                    element: <AdminPrivateRoute><AddPublisher></AddPublisher></AdminPrivateRoute>,
+                    loader: () => fetch('http://localhost:5000/publishers')
+                },
             ]
         }
 
