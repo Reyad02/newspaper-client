@@ -14,6 +14,8 @@ import IndividualSubscriptionPage from "../pages/Subscription/IndividualSubscrip
 import PremiumArticle from "../pages/PremiumArticle/PremiumArticle";
 import MyArticle from "../pages/MyArticle/MyArticle";
 import UpdateNews from "../pages/UpdateNews/UpdateNews";
+import Admin from "../Layout/Admin";
+import AdminPrivateRoute from "./AdminPrivateRoute";
 
 
 
@@ -77,6 +79,10 @@ export const router = createBrowserRouter(
             path: "/signUp",
             element: <Signup></Signup>
         },
+        {
+            path: "/admin",
+            element: <AdminPrivateRoute><Admin></Admin></AdminPrivateRoute>
+        }
 
     ]);
 

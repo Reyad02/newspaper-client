@@ -2,11 +2,17 @@ import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../../../provider/AuthProvider';
 import usePremiumUser from '../../../../hooks/usePremiumUser';
+import useAdmin from '../../../../hooks/useAdmin';
 
 const Navbar = () => {
     const { user, loading, logOut } = useContext(AuthContext);
     const { isPremium } = usePremiumUser(user?.email);
+    const [isAdmin, adminLoading] = useAdmin(user?.email);
+    console.log("isAdmin", isAdmin);
 
+    // const [isAdmin, adminLoading] = useAdmin(user?.email);
+    // console.log(isAdmin);
+    // if (loading || adminLoading) return <p>Loading...</p>;
 
     const navlinks = <>
         <li><NavLink to={"/"}>Home</NavLink></li>
@@ -16,6 +22,11 @@ const Navbar = () => {
         {
             isPremium && <li><NavLink to={"premium-individual"}>Premium Article</NavLink></li>
         }
+        {
+            isAdmin && <li><NavLink to={"admin"}>Dashboard</NavLink></li>
+        }
+        {/* {isPremium && <li><NavLink to={"premium-individual"}>Premium Article</NavLink></li>} */}
+
         <li><NavLink to={`my-article/${user?.email}`}>My Articles</NavLink></li>
         {/* {
             user && 
