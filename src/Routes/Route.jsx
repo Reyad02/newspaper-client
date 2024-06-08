@@ -16,6 +16,7 @@ import MyArticle from "../pages/MyArticle/MyArticle";
 import UpdateNews from "../pages/UpdateNews/UpdateNews";
 import Admin from "../Layout/Admin";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import AllUsers from "../pages/AllUsers/AllUsers";
 
 
 
@@ -81,7 +82,14 @@ export const router = createBrowserRouter(
         },
         {
             path: "/admin",
-            element: <AdminPrivateRoute><Admin></Admin></AdminPrivateRoute>
+            element: <AdminPrivateRoute><Admin></Admin></AdminPrivateRoute>,
+            children: [
+                {
+                    path: "allUsers",
+                    element: <AdminPrivateRoute><AllUsers></AllUsers></AdminPrivateRoute>,
+                    loader: () => fetch('http://localhost:5000/users')
+                }
+            ]
         }
 
     ]);

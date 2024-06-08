@@ -14,7 +14,7 @@ const Admin = () => {
                         <li className="text-center"><p className="font-semibold text-3xl">Newspaper</p></li>
                         {
                             <>
-                                <li><NavLink to="/dashboard/adminHome">
+                                <li><NavLink to="/admin/allUsers">
                                     All Users
                                 </NavLink></li>
                                 <li><NavLink to="/dashboard/addItems">
