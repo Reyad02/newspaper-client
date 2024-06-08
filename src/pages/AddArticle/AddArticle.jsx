@@ -7,8 +7,10 @@ import Swal from 'sweetalert2';
 import { useContext, useState } from 'react';
 import auth from '../../firebase/firebase.config';
 import { AuthContext } from '../../provider/AuthProvider';
+import { useLoaderData } from 'react-router-dom';
 
 const AddArticle = () => {
+    const publisher = useLoaderData();
     const axiosPublic = useAxiosPublic();
     const [selectedTags, setSelectedTags] = useState([]);
     const { user } = useContext(AuthContext);
@@ -142,8 +144,11 @@ const AddArticle = () => {
                         <span className="label-text">Publisher</span>
                     </label>
                     <select name="publisher" id="publisher" className="p-2 rounded-lg bg-base-100 border dropdown text-base" required>
-                        <option value="hi">hi</option>
-                        <option value="it">it</option>
+                        {
+                            publisher.map(p => <option key={p._id} value={p.name}>{p.name}</option>)
+                        }
+                        {/* <option value="hi">hi</option>
+                        <option value="it">it</option> */}
                     </select>
                 </div>
                 <div className="form-control">

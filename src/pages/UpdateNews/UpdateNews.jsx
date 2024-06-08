@@ -1,20 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Select from 'react-select';
 import chroma from 'chroma-js';
-import { Navigate } from 'react-router-dom';
-
 
 import { colourOptions } from '../AddArticle/jsForSelect/jsForSelect';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
 
 const UpdateNews = () => {
+    const [publishers, setPublishers] = useState([]);
     const updateNews = useLoaderData();
     const idUpdateNews = updateNews._id;
     const axiosPublic = useAxiosPublic();
     const [selectedTags, setSelectedTags] = useState([]);
     const navigate = useNavigate();
+    const [selectedPublisher, setSelectedPublisher] = useState('');
+
 
     const colourStyles = {
         control: (styles) => ({ ...styles, backgroundColor: 'transparent', padding: '2px' }),
@@ -106,7 +107,6 @@ const UpdateNews = () => {
                                     timer: 1500
                                 });
                                 navigate(`/my-article/${updateNews?.author}`);
-                                // return <Navigate to="/allArticles" />
                             }
                         })
                 })
@@ -116,8 +116,40 @@ const UpdateNews = () => {
                     console.log(errorMessage)
                 });
         }
+        else if (!imageFile) {
+            const articleInfo = {
+                title: title,
+                publisher: publisher,
+                tags: tags,
+                photo: updateNews.photo,
+                description: description,
+            }
+            axiosPublic.put(`/update-article/${idUpdateNews}`, articleInfo)
+                .then(res => {
+                    if (res.data.modifiedCount) {
+                        Swal.fire({
+                            position: "center",
+                            title: "Updates!",
+                            text: "News updated successfully!",
+                            icon: "success",
+                            timer: 1500
+                        });
+                        navigate(`/my-article/${updateNews?.author}`);
+                    }
+                })
+        }
         e.target.reset();
     }
+
+    useEffect(() => {
+        axiosPublic.get('/publishers')
+            .then(res => {
+                setPublishers(res.data);
+                setSelectedPublisher(updateNews.publisher); // Set the selectedPublisher after fetching publishers
+
+            })
+    }, [axiosPublic, updateNews.publisher])
+
 
     return (
         <div>
@@ -144,15 +176,34 @@ const UpdateNews = () => {
                     <label className="label">
                         <span className="label-text">Publisher</span>
                     </label>
-                    <select defaultValue={updateNews?.publisher} name="publisher" id="publisher" className="p-2 rounded-lg bg-base-100 border dropdown text-base" required>
-                        <option value="hi">hi</option>
-                        <option value="it">it</option>
+                    {/* <p>{updateNews.publisher}</p> */}
+                    {/* <select defaultValue={selectedPublisher} name="publisher" id="publisher" className="p-2 rounded-lg bg-base-100 border dropdown text-base" required>
+                        {
+                            publishers.map((publish, index) => {
+                                return (
+                                    <option key={index} value={publish.name}>{publish.name}</option>
+                                )
+                            })
+                        }
+                    </select> */}
+                    <select
+                        value={selectedPublisher}
+                        onChange={(e) => setSelectedPublisher(e.target.value)}
+                        name="publisher"
+                        id="publisher"
+                        className="p-2 rounded-lg bg-base-100 border dropdown text-base"
+                        required
+                    >
+                        {publishers.map((publish, index) => (
+                            <option key={index} value={publish.name}>{publish.name}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="form-control">
                     <label className="label">
                         <span className="label-text">Tags</span>
                     </label>
+                    {/* <p>{updateNews?.tags.map(tag => tag)}</p> */}
                     <Select
                         isMulti
                         name="colors"

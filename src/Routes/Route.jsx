@@ -35,6 +35,7 @@ export const router = createBrowserRouter(
                 {
                     path: "addArticle",
                     element: <PrivateRoute><AddArticle></AddArticle></PrivateRoute>,
+                    loader: () => fetch('http://localhost:5000/publishers')
                 },
                 {
                     path: "allArticles",

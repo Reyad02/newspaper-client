@@ -97,20 +97,20 @@ const AddPublisher = () => {
                     </div>
                 </div>
             </div>
-            {publishers.map((publisher) => (
-                <div key={publisher._id} className="card shadow-2xl bg-base-100">
-                    <div className="card-body">
+            <div  className="card shadow-2xl bg-base-100">
+                {publishers.map((publisher) => (
+                    <div className="card-body " key={publisher._id}>
                         <div className="flex justify-between">
                             <div>
-                                <h1 className="text-3xl font-semibold uppercase">{publisher.name}</h1>
+                                <h1 className="">{publisher.name}</h1>
                             </div>
                             <div>
                                 <img src={publisher.photo} alt={publisher.name} className="w-10" />
                             </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </div>
     );
 };
