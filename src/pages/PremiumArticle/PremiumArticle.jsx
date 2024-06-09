@@ -3,7 +3,6 @@ import usePremiumUser from "../../hooks/usePremiumUser";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const PremiumArticle = () => {
-    const {user} = useContext(AuthContext);
     const { isPremium } = usePremiumUser(user?.email);
 
     return (

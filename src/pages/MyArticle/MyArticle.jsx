@@ -22,7 +22,7 @@ const MyArticle = () => {
         setMyArticles(allArticles);
     }, [allArticles])
     return (
-        <div>
+        <div className="max-w-7xl mx-auto">
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}

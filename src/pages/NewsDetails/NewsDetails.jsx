@@ -46,7 +46,7 @@ import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const NewsDetails = () => {
     const loadNews = useLoaderData();
-    const { _id, title, description, photo, publisher, tags, author } = loadNews;
+    const { _id, title, description, photo, publisher, tags, author, postedDate } = loadNews;
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
 
@@ -71,10 +71,17 @@ const NewsDetails = () => {
                 <div>
                     <h1 className="text-5xl font-bold">{title}</h1>
                     <p className="py-6">{description}</p>
-                    <p>Author: {publisher}</p>
-                    <div>Tags: {tags.map((tag, idx) => (
-                        <div className="badge badge-primary mr-2 uppercase" key={idx}>{tag}</div>
-                    ))}</div>
+                    <div className="space-y-1">
+                        <p>Author: {author}</p>
+                        <p>Publisher: {publisher}</p>
+                        <div>Tags: {tags.map((tag, idx) => (
+                            <div className="badge badge-primary mr-2 uppercase" key={idx}>{tag}</div>
+                        ))}
+                        </div>
+                        {
+                            postedDate && <p>Posted on: {new Date(postedDate).toISOString().split('T')[0]}</p>
+                        }
+                    </div>
                 </div>
             </div>
         </div>

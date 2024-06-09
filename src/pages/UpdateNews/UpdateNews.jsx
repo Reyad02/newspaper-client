@@ -152,7 +152,7 @@ const UpdateNews = () => {
 
 
     return (
-        <div>
+        <div className="max-w-7xl mx-auto">
             <form onSubmit={handleUpadate}>
                 <div className="form-control">
                     <label className="label">
@@ -170,7 +170,7 @@ const UpdateNews = () => {
                     <label className="label">
                         <span className="label-text">Photo</span>
                     </label>
-                    <input type="file" name="photo" className="input input-bordered" />
+                    <input type="file" name="photo" className="mb-2" />
                 </div>
                 <div className="form-control">
                     <label className="label">
@@ -217,7 +217,7 @@ const UpdateNews = () => {
                     />
                 </div>
                 <div className="form-control">
-                    <button className="btn btn-primary">Update</button>
+                    <button className="btn btn-primary mt-8">Update</button>
                 </div>
             </form>
         </div>

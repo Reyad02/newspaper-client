@@ -110,7 +110,7 @@ const Signup = () => {
             })
     }
     return (
-        <div>
+        <div className="mx-auto max-w-2xl">
             <form className="card-body" onSubmit={handleForm}>
                 <div className="form-control">
                     <label className="label">
@@ -137,7 +137,7 @@ const Signup = () => {
                     <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary">Login</button>
+                    <button className="btn btn-primary">Sign up</button>
                 </div>
             </form>
             <p className='text-center '>If you have an account than please <Link to={"/login"} className='text-blue-400'>login</Link> first</p>

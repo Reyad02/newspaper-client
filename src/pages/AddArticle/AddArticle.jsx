@@ -4,16 +4,19 @@ import chroma from 'chroma-js';
 import { colourOptions } from './jsForSelect/jsForSelect';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import Swal from 'sweetalert2';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import auth from '../../firebase/firebase.config';
 import { AuthContext } from '../../provider/AuthProvider';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 
 const AddArticle = () => {
     const publisher = useLoaderData();
     const axiosPublic = useAxiosPublic();
     const [selectedTags, setSelectedTags] = useState([]);
     const { user } = useContext(AuthContext);
+    const [resetSelect, setResetSelect] = useState(false); // State to reset Select component
+    const navigate = useNavigate();
+
 
     const colourStyles = {
         control: (styles) => ({ ...styles, backgroundColor: 'transparent', padding: '2px' }),
@@ -70,7 +73,6 @@ const AddArticle = () => {
 
     const handleAddArticle = (e) => {
         e.preventDefault();
-        // console.log("clicked");
 
         const form = e.target;
         const title = form.title.value;
@@ -88,7 +90,6 @@ const AddArticle = () => {
 
         }).then(res => res.json())
             .then(data => {
-                // console.log(data.data.display_url);
                 const articleInfo = {
                     title: title,
                     publisher: publisher,
@@ -112,6 +113,11 @@ const AddArticle = () => {
                                 icon: "success",
                                 timer: 1500
                             });
+                            form.reset();
+                            setSelectedTags([]);
+                            setResetSelect(true);
+                            navigate("/");
+
                         }
                     })
 
@@ -123,10 +129,24 @@ const AddArticle = () => {
             });
     }
 
+    // Reset the Select component when reset flag changes
+    useEffect(() => {
+        let isMounted = true; // Flag to track if component is mounted
+
+        if (resetSelect && isMounted) {
+            setSelectedTags([]); // Reset the Select component
+            setResetSelect(false); // Reset the flag
+        }
+
+        return () => {
+            isMounted = false; // Set the flag to false when component is unmounted
+        };
+    }, [resetSelect]);
+
 
 
     return (
-        <div>
+        <div className='mx-auto max-w-7xl'>
             <form className="card-body" onSubmit={handleAddArticle}>
                 <div className="form-control">
                     <label className="label">
@@ -144,12 +164,10 @@ const AddArticle = () => {
                     <label className="label">
                         <span className="label-text">Publisher</span>
                     </label>
-                    <select name="publisher" id="publisher" className="p-2 rounded-lg bg-base-100 border dropdown text-base" required>
+                    <select name="publisher" id="publisher" className="p-2 rounded-lg bg-base-100 border dropdown text-base input input-bordered" required>
                         {
                             publisher.map(p => <option key={p._id} value={p.name}>{p.name}</option>)
                         }
-                        {/* <option value="hi">hi</option>
-                        <option value="it">it</option> */}
                     </select>
                 </div>
                 <div className="form-control">
@@ -163,7 +181,10 @@ const AddArticle = () => {
                         className="basic-multi-select "
                         classNamePrefix="select"
                         styles={colourStyles}
-                        onChange={setSelectedTags}
+                        onChange={(selected) => {
+                            setSelectedTags(selected);
+                            setResetSelect(false); // Set reset flag to false when selection changes
+                        }}
                         required
                     />
                 </div>
@@ -171,10 +192,10 @@ const AddArticle = () => {
                     <label className="label">
                         <span className="label-text">Description</span>
                     </label>
-                    <input type="text" name="description" placeholder="Description" className="input input-bordered input-lg text-base" required />
+                    <textarea placeholder="Description" name="description" className="textarea textarea-bordered"></textarea>
                 </div>
                 <div className="form-control mt-6">
-                    <button className="btn btn-primary">Add</button>
+                    <button className="btn btn-primary">Add News</button>
                 </div>
             </form>
         </div>

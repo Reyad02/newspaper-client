@@ -27,7 +27,7 @@ const AllUsers = () => {
 
 
     return (
-        <div>
+        <div className="a">
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}

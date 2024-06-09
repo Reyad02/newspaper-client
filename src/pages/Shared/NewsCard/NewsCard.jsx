@@ -1,10 +1,19 @@
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import AuthProvider, { AuthContext } from "../../../provider/AuthProvider";
+import { useContext, useEffect } from "react";
+import usePremiumUser from "../../../hooks/usePremiumUser";
 
-const NewsCard = ({article}) => {
+const NewsCard = ({ article }) => {
     const axiosPublic = useAxiosPublic();
+    const { user } = useContext(AuthContext);
+    const { isPremium } = usePremiumUser(user?.email);
 
-    const { _id, title, description, photo, publisher } = article;
+    const { _id, title, description, photo, publisher, isPremium: premiumArticle } = article;
+
+    // useEffect(() => {
+    //     axiosPublic.get(`/user/${user?.email}`)
+    // }, []);
 
 
     return (
@@ -13,14 +22,11 @@ const NewsCard = ({article}) => {
             <div className="card-body">
                 <h2 className="card-title">
                     {title}
-                    {/* <div className="badge badge-secondary">{title}</div> */}
                 </h2>
-                <p>{description.length > 50 ?  description.slice(0,50)+"..." : description}</p>
-                {/* <div className="card-actions justify-end">
-                    <div className="badge badge-outline">Fashion</div>
-                    <div className="badge badge-outline">Products</div>
-                </div> */}
-                <Link className="btn bg-green-300" to={`details/${_id}`}>Details</Link>
+                <p>{description.length > 50 ? description.slice(0, 50) + "..." : description}</p>
+                {
+                    premiumArticle === "not" ? <Link className="btn bg-green-300" to={`details/${_id}`}>Details</Link> : isPremium ? <Link className="btn bg-green-300" to={`details/${_id}`}>Details</Link> : <button className="btn w-full" disabled>Details</button>
+                }
             </div>
         </div>
     );

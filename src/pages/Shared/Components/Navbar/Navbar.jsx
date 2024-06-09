@@ -20,16 +20,12 @@ const Navbar = () => {
         <li><NavLink to={"allArticles"}>All Articles</NavLink></li>
         <li><a>Subscription</a></li>
         {
-            isPremium && <li><NavLink to={"premium-individual"}>Premium Article</NavLink></li>
-        }
-        {
             isAdmin && <li><NavLink to={"admin"}>Dashboard</NavLink></li>
         }
-
         <li><NavLink to={`my-article/${user?.email}`}>My Articles</NavLink></li>
-        
-
-
+        {
+            isPremium && <li><NavLink to={"premium-individual"}>Premium Article</NavLink></li>
+        }
     </>
     return (
         <div className="navbar bg-base-100 max-w-7xl mx-auto">
@@ -57,7 +53,10 @@ const Navbar = () => {
                             <img src={user.photoURL} alt="" className='w-10 rounded-full' />
                         </>
 
-                        : <NavLink to="/login" className="text-gray-400 rounded-md p-2">Login</NavLink>
+                        : <div className='menu menu-horizontal px-1 gap-4'>
+                            <NavLink to="/login" className="hover:bg-blue-300 p-2 hover:text-black rounded-md">Login</NavLink>
+                            <NavLink to="/signup" className="hover:bg-blue-300 p-2 hover:text-black rounded-md">Sign up</NavLink>
+                        </div>
                 }
             </div>
         </div>
