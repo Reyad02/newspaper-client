@@ -1,15 +1,15 @@
 import { useContext } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import useAxiosPublic from '../hooks/useAxiosPublic';
+import { FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
-    const { signInUser } = useContext(AuthContext);
+    const { signInUser, googleSignIn } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
-    // const { user }= useContext(AuthContext);
 
     const handleLogin = e => {
         e.preventDefault();
@@ -20,30 +20,28 @@ const Login = () => {
             .then((userCredential) => {
                 Swal.fire({
                     position: "center",
-                    title: "Registered!",
-                    text: "Successfully registered!",
+                    title: "Logged In!",
+                    text: "Successfully logged in!",
                     icon: "success",
                     timer: 1500
                 });
                 const loggedInUser = userCredential.user;
-                axiosPublic.get(`/user/${loggedInUser?.email}`) //get user by email
-                            .then(res => {
-                                if (res.data) {
-                                    if (res.data?.premiumTaken > new Date().toISOString()) {
-                                        // localStorage.setItem('premium', true);
-                                        console.log("premium taken");
+                axiosPublic.get(`/user/${loggedInUser?.email}`)
+                    .then(res => {
+                        if (res.data) {
+                            if (res.data?.premiumTaken > new Date().toISOString()) {
+                                console.log("premium taken");
 
-                                    } else {
-                                        // localStorage.removeItem('premium');
-                                        axiosPublic.put(`update-user-premium/${loggedInUser?.email}`)
-                                        .then(res => {
-                                            console.log(res.data);
-                                        })
-                                        console.log("premium not taken");
-                                    }
-                                }
-                            })
-                
+                            } else {
+                                axiosPublic.put(`update-user-premium/${loggedInUser?.email}`)
+                                    .then(res => {
+                                        console.log(res.data);
+                                    })
+                                console.log("premium not taken");
+                            }
+                        }
+                    })
+
                 navigate(location?.state ? location?.state : "/");
                 // console.log(loggedInUser);
                 // const user = { email };
@@ -63,8 +61,61 @@ const Login = () => {
                 console.log(errorMessage)
             });
     }
+
+    const handleGoogleLogin = () => {
+        googleSignIn()
+            .then((userCredential) => {
+                const loggedInUser = userCredential.user;
+                console.log(" looged in user ", loggedInUser);
+                axiosPublic.get(`/user/${loggedInUser?.email}`)
+                    .then(res => {
+                        console.log(res);
+                        if (res.data) {
+                            if (res.data?.premiumTaken > new Date().toISOString()) {
+                                console.log("premium taken");
+
+                            } else {
+                                axiosPublic.put(`update-user-premium/${loggedInUser?.email}`)
+                                    .then(res => {
+                                        console.log(res.data);
+                                    })
+                                console.log("premium not taken");
+                            }
+                            navigate(location?.state ? location?.state : "/");
+                        }
+                        else {
+                            const userInfo = {
+                                name: loggedInUser.displayName,
+                                email: loggedInUser.email,
+                                photo: loggedInUser.photoURL,
+                                role: "user",
+                                premiumTaken: null,
+                            }
+                            axiosPublic.post('/users', userInfo)
+                                .then(res => {
+                                    if (res.data.insertedId) {
+                                        Swal.fire({
+                                            position: "center",
+                                            title: "Registered!",
+                                            text: "Successfully registered!",
+                                            icon: "success",
+                                            timer: 1500
+                                        });
+                                        navigate(location?.state ? location?.state : "/");
+                                    }
+                                })
+                        }
+                    })
+
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage)
+            });
+    }
     return (
-        <div>
+        <div className='mx-auto max-w-2xl'>
             <form className="card-body" onSubmit={handleLogin}>
                 <div className="form-control">
                     <label className="label">
@@ -79,9 +130,16 @@ const Login = () => {
                     <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                 </div>
                 <div className="form-control mt-6">
-                    <input className="btn bg-[#FF3811] text-white" type="submit" value="Sing In" />
+                    <input className="btn text-white" type="submit" value="Sing In" />
                 </div>
             </form>
+            <p className='text-center '>If you do not have any account than please <Link to={"/signUp"} className='text-blue-400'>register</Link> first</p>
+            <div className="flex flex-col w-full border-opacity-50 ">
+                <div className="divider">OR</div>
+                <div className='flex justify-center'>
+                    <button onClick={handleGoogleLogin} className="btn btn-wide"><FaGoogle /> Login with Google</button>
+                </div>
+            </div>
         </div>
     );
 };

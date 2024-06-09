@@ -98,6 +98,7 @@ const AddArticle = () => {
                     author: user?.email,
                     isPremium: "not",
                     status: "pending",
+                    count: 0,
                     postedDate: new Date().toISOString(),
 
                 }
