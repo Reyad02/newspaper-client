@@ -92,7 +92,7 @@ const IndividualPayment = () => {
         }
     }
     return (
-        <div>
+        <div className="">
             <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{
@@ -110,7 +110,7 @@ const IndividualPayment = () => {
                         },
                     }}
                 />
-                <button type="submit" disabled={!stripe || !clientSecret}>
+                <button className="flex justify-center btn bg-blue-300 text-black" type="submit" disabled={!stripe || !clientSecret}>
                     Pay
                 </button>
             </form>

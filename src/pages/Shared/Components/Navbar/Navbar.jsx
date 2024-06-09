@@ -18,7 +18,7 @@ const Navbar = () => {
         <li><NavLink to={"/"}>Home</NavLink></li>
         <li><NavLink to={"addArticle"}>Add Articles</NavLink></li>
         <li><NavLink to={"allArticles"}>All Articles</NavLink></li>
-        <li><a>Subscription</a></li>
+        <li><NavLink to={"individual-Subscription"}>Subscription</NavLink></li>
         {
             isAdmin && <li><NavLink to={"admin"}>Dashboard</NavLink></li>
         }
@@ -50,7 +50,9 @@ const Navbar = () => {
                     user ?
                         <>
                             <button onClick={logOut} className=" text-gray-400 p-2 rounded-md hover:bg-black mr-4">Logout</button>
-                            <img src={user.photoURL} alt="" className='w-10 rounded-full' />
+                            <Link to={`userPage/${user?.email}`}>
+                                <img src={user.photoURL} alt="" className='w-10 rounded-full' />
+                            </Link>
                         </>
 
                         : <div className='menu menu-horizontal px-1 gap-4'>

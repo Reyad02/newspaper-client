@@ -6,6 +6,7 @@ const MyArticle = () => {
     const [myArticles, setMyArticles] = useState([])
     const allArticles = useLoaderData();
     const axiosPublic = useAxiosPublic();
+    const [declineReason, setDeclineReason] = useState("");
     console.log(allArticles)
 
     const handleDelete = (id) => {
@@ -18,7 +19,14 @@ const MyArticle = () => {
             })
     }
 
+    const handleDecline = (reason) => {
+        console.log(reason);
+        setDeclineReason(reason);
+        document.getElementById('my_modal_2').showModal()
+    }
+
     useEffect(() => {
+
         setMyArticles(allArticles);
     }, [allArticles])
     return (
@@ -42,7 +50,8 @@ const MyArticle = () => {
                                     <tr key={article._id}>
                                         <th>{index + 1}</th>
                                         <td>{article.title.length < 40 ? article.title : article.title.slice(0, 40) + "..."}</td>
-                                        <td>{article.status}</td>
+                                        {/* <td>{article.status}</td> */}
+                                        <td>{article.status === "declined" ? <><p>{article.status}</p><button className="btn btn-xs mt-2 bg-blue-200 text-gray-600" onClick={() => handleDecline(article?.declineReason)}>Reason</button></> : <>{article.status}</>}</td>
                                         <td>{article.isPremium === "yes" ? "Premium" : "Not Premium"}</td>
                                         <td className="flex justify-evenly">
                                             <Link className="btn btn-sm btn-primary" to={`details/${article._id}`}>Details</Link>
@@ -56,6 +65,15 @@ const MyArticle = () => {
                     </tbody>
                 </table>
             </div>
+            <dialog id="my_modal_2" className="modal">
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg text-center text-red-400">Decline Reason: {declineReason}</h3>
+                    {/* <p className="py-4">Press ESC key or click outside to close</p> */}
+                </div>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
         </div>
     );
 };

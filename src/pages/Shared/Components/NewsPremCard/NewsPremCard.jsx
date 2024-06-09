@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import { AuthContext } from "../../../provider/AuthProvider";
 import { useContext } from "react";
-import usePremiumUser from "../../../hooks/usePremiumUser";
+import useAxiosPublic from "../../../../hooks/useAxiosPublic";
+import { AuthContext } from "../../../../provider/AuthProvider";
+import usePremiumUser from "../../../../hooks/usePremiumUser";
 
-const NewsCard = ({ article }) => {
+const NewsPremCard = ({ article }) => {
     const axiosPublic = useAxiosPublic();
     const { user } = useContext(AuthContext);
     const { isPremium } = usePremiumUser(user?.email);
@@ -29,4 +29,4 @@ const NewsCard = ({ article }) => {
     );
 };
 
-export default NewsCard;
+export default NewsPremCard;

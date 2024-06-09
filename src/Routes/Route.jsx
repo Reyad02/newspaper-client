@@ -19,6 +19,7 @@ import AdminPrivateRoute from "./AdminPrivateRoute";
 import AllUsers from "../pages/AllUsers/AllUsers";
 import AdminArticles from "../pages/AdminArticles/AdminArticles";
 import AddPublisher from "../pages/AddPublisher/AddPublisher";
+import UserPage from "../pages/UserPage/UserPage";
 
 
 
@@ -49,6 +50,11 @@ export const router = createBrowserRouter(
                     loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`)
                 },
                 {
+                    path: "premium-individual/details/:id",
+                    element: <PrivateRoute><NewsDetails></NewsDetails></PrivateRoute>,
+                    loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`)
+                },
+                {
                     path: "individual-Subscription",
                     element: <PrivateRoute><IndividualSubscriptionPage></IndividualSubscriptionPage></PrivateRoute>,
                 },
@@ -70,6 +76,10 @@ export const router = createBrowserRouter(
                     path: "my-article/:email/update/:id",
                     element: <PrivateRoute><UpdateNews></UpdateNews></PrivateRoute>,
                     loader: ({ params }) => fetch(`http://localhost:5000/details/${params.id}`)
+                },
+                {
+                    path: "userPage/:email",
+                    element: <PrivateRoute><UserPage></UserPage></PrivateRoute>,
                 }
 
             ],
