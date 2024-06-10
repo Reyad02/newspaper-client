@@ -9,6 +9,7 @@ const AddPublisher = () => {
     const [publishers, setPublishers] = useState([]);
     const axiosPublic = useAxiosPublic();
     let count = 0;
+    let count1 = 0;
     // console.log(allPublishers);
 
     const handlePublisher = (e) => {
@@ -40,6 +41,7 @@ const AddPublisher = () => {
                                 icon: "success",
                                 timer: 1500
                             });
+                            e.target.reset();
                             setPublishers(prevPublishers => [...prevPublishers, { name, photo: data.data.display_url }]);
 
                         }
@@ -66,9 +68,9 @@ const AddPublisher = () => {
     }, [axiosPublic])
     return (
         <div key={count} className=" flex flex-col lg:flex-row ">
-              <Helmet>
-                    <title>24NEWS | Publisher</title>
-                </Helmet>
+            <Helmet>
+                <title>24NEWS | Publisher</title>
+            </Helmet>
             <div className=" bg-base-100 lg:w-1/3 ">
                 <div className="hidden">
                     {count++}
