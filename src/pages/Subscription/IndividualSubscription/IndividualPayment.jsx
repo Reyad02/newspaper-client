@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useContext, useEffect, useState } from "react";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { AuthContext } from "../../../provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const IndividualPayment = () => {
     const stripe = useStripe();
@@ -63,7 +64,7 @@ const IndividualPayment = () => {
 
 
 
-        const {paymentIntent, error: confirError} = await stripe.confirmCardPayment(clientSecret, {
+        const { paymentIntent, error: confirError } = await stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
                 billing_details: {
@@ -86,13 +87,20 @@ const IndividualPayment = () => {
                 .then(res => {
                     if (res.data.insertedId) {
                         console.log("Premium added");
+                        Swal.fire({
+                            position: "center",
+                            title: "Congrats!",
+                            text: "You are a premium user!",
+                            icon: "success",
+                            timer: 1500
+                        });
                     }
                 })
 
         }
     }
     return (
-        <div className="">
+        <div className=" ">
             <form onSubmit={handleSubmit}>
                 <CardElement
                     options={{

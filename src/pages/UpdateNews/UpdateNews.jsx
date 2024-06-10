@@ -164,7 +164,8 @@ const UpdateNews = () => {
                     <label className="label">
                         <span className="label-text">Description</span>
                     </label>
-                    <textarea placeholder="Description" name="description" defaultValue={updateNews?.description} className="textarea textarea-bordered"></textarea>
+                    {/* <textarea placeholder="Description" name="description" defaultValue={updateNews?.description} className="textarea textarea-bordered"></textarea> */}
+                    <input type="text" placeholder="Description" name="description" defaultValue={updateNews?.description} className="textarea textarea-bordered"/>
                 </div>
                 <div className="form-control">
                     <label className="label">

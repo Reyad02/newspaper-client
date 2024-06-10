@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import { FaGoogle } from "react-icons/fa";
 
 const Signup = () => {
-    const { createUser, updateUserProfile, googleSignIn } = useContext(AuthContext);
+    const { createUser, updateUserProfile, googleSignIn, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
 
@@ -79,6 +79,7 @@ const Signup = () => {
                                                 icon: "success",
                                                 timer: 1500
                                             });
+                                            setLoading(false);
                                             navigate("/");
                                         }
                                     })

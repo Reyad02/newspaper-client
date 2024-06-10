@@ -43,7 +43,7 @@ export const router = createBrowserRouter(
                 },
                 {
                     path: "allArticles",
-                    element: <PrivateRoute><AllArticle></AllArticle></PrivateRoute>,
+                    element: <AllArticle></AllArticle>,
                     loader: () => fetch('http://localhost:5000/articles'),
 
                 },
