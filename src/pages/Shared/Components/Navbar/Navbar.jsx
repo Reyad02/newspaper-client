@@ -20,7 +20,7 @@ const Navbar = () => {
         <li><NavLink to={"allArticles"}>All Articles</NavLink></li>
         <li><NavLink to={"individual-Subscription"}>Subscription</NavLink></li>
         {
-            isAdmin && <li><NavLink to={"admin"}>Dashboard</NavLink></li>
+            isAdmin && <li><NavLink to={"/admin/adminHome"}>Dashboard</NavLink></li>
         }
         <li><NavLink to={`my-article/${user?.email}`}>My Articles</NavLink></li>
         {

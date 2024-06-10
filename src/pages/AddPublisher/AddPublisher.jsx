@@ -64,16 +64,14 @@ const AddPublisher = () => {
         // setPublishers(allPublishers);
     }, [axiosPublic])
     return (
-        <div key={count}>
-            <div className="hero bg-base-200">
+        <div key={count} className="">
+            <div className="hero bg-base-100">
                 <div className="hidden">
-
                     {count++}
                 </div>
-                <div className="hero-content flex-col lg:flex-row-reverse">
-
-                    <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                        <form className="card-body" onSubmit={handlePublisher}>
+                <div className=" md:hero-content flex-col lg:flex-row-reverse">
+                    <div className="card shrink-0 shadow-2xl bg-base-100">
+                        <form className="px-4 md:px-0 md:card-body" onSubmit={handlePublisher}>
                             <h1 className="text-3xl font-semibold uppercase text-center">Publisher</h1>
                             <div className="form-control">
                                 <label className="label">
@@ -97,7 +95,7 @@ const AddPublisher = () => {
                     </div>
                 </div>
             </div>
-            <div  className="card shadow-2xl bg-base-100">
+            <div  className="card shadow-2xl max-w-5xl mx-auto bg-base-100">
                 {publishers.map((publisher) => (
                     <div className="card-body " key={publisher._id}>
                         <div className="flex justify-between">

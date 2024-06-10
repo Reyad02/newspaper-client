@@ -20,6 +20,7 @@ import AllUsers from "../pages/AllUsers/AllUsers";
 import AdminArticles from "../pages/AdminArticles/AdminArticles";
 import AddPublisher from "../pages/AddPublisher/AddPublisher";
 import UserPage from "../pages/UserPage/UserPage";
+import AdminHome from "../pages/AdminHome/AdminHome";
 
 
 
@@ -97,6 +98,11 @@ export const router = createBrowserRouter(
             path: "/admin",
             element: <AdminPrivateRoute><Admin></Admin></AdminPrivateRoute>,
             children: [
+                {
+                    path: "adminHome",
+                    element: <AdminPrivateRoute><AdminHome></AdminHome></AdminPrivateRoute>,
+                    loader: () => fetch('http://localhost:5000/articles-publisher')
+                },
                 {
                     path: "allUsers",
                     element: <AdminPrivateRoute><AllUsers></AllUsers></AdminPrivateRoute>,
