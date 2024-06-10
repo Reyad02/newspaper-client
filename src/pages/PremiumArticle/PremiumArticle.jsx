@@ -33,12 +33,7 @@ const PremiumArticle = () => {
     }
 
     useEffect(() => {
-        // if (isPremium) {
-        //     // console.log("not get premium");
-        //     // logOut();
-        //     // navigate("/login")
-        //     setPremiumState(true);
-        // }
+       
         axiosPublic.get(`/user/${user?.email}`) //get user by email
             .then(res => {
                 if (res.data) {

@@ -17,8 +17,7 @@ const usePremiumUser = (email) => {
                 .then(res => {
                     if (res.data) {
                         if (res.data?.premiumTaken> new Date().toISOString()) {
-                            // localStorage.setItem('premium', true);
-                            // console.log("premium taken");
+                            
                             setIsPremium(true);
                             // console.log("premium taken", isPremium)
 
