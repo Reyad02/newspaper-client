@@ -22,7 +22,7 @@ const AllUsers = () => {
     const handleMakeAdmin = (id) => {
         axiosPublic.put(`/update-user-role/${id}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setAllusers(prevUsers => prevUsers.map(user =>
                     user._id === id ? { ...user, role: 'admin' } : user
                 ));

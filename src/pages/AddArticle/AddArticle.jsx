@@ -85,7 +85,7 @@ const AddArticle = () => {
         const tags = selectedTags.map(tag => tag.value);
         const imageFile = form.photo.files[0];
         const description = form.description.value;
-        console.log(title, publisher, tags, imageFile, description);
+        // console.log(title, publisher, tags, imageFile, description);
         const formData = new FormData();
         formData.append('image', imageFile);
 
@@ -130,7 +130,7 @@ const AddArticle = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorMessage)
+                // console.log(errorMessage)
             });
     }
 
@@ -145,23 +145,23 @@ const AddArticle = () => {
                         // console.log("premium taken");
                         setIsPremium(true);
                         setCanWrite(true);
-                        console.log("premium taken", isPremium)
+                        // console.log("premium taken", isPremium)
                     }
                     else {
                         setIsPremium(false);
-                        console.log("premium not taken", isPremium)
+                        // console.log("premium not taken", isPremium)
                         axiosPublic.get(`/article-writing/${user?.email}`)
                             .then(res => {
                                 if (res.data.length > 0) {
                                     setCanWrite(false);
-                                    console.log("You can write article2", isPremium);
+                                    // console.log("You can write article2", isPremium);
 
                                     // console.log(res.data);
                                 }
                                 else {
                                     // console.log("You can't write article");
                                     setCanWrite(true);
-                                    console.log("You can write article3", isPremium);
+                                    // console.log("You can write article3", isPremium);
 
                                 }
                             })

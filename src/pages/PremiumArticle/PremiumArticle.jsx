@@ -60,14 +60,14 @@ const PremiumArticle = () => {
         axiosPublic.get("/premiumArticles")
             .then(res => {
                 setPremiumArticles(res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
 
         axiosPublic.get("/allAuthors")
             .then(res => {
                 const uniqueAuthors = Array.from(new Set(res.data));
                 setPremiumAuthors(uniqueAuthors);
-                console.log(uniqueAuthors);
+                // console.log(uniqueAuthors);
             })
             .catch(err => console.error(err));
 

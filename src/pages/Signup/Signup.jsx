@@ -86,13 +86,13 @@ const Signup = () => {
 
                             })
                             .catch((error) => {
-                                console.log(error)
+                                // console.log(error)
                             });
                     })
                     .catch((error) => {
                         const errorCode = error.code;
                         const errorMessage = error.message;
-                        console.log(errorMessage)
+                        // console.log(errorMessage)
                     });
             })
     }
@@ -100,20 +100,20 @@ const Signup = () => {
         googleSignIn()
             .then((userCredential) => {
                 const loggedInUser = userCredential.user;
-                console.log(" looged in user ", loggedInUser);
+                // console.log(" looged in user ", loggedInUser);
                 axiosPublic.get(`/user/${loggedInUser?.email}`)
                     .then(res => {
-                        console.log(res);
+                        // console.log(res);
                         if (res.data) {
                             if (res.data?.premiumTaken > new Date().toISOString()) {
-                                console.log("premium taken");
+                                // console.log("premium taken");
 
                             } else {
                                 axiosPublic.put(`update-user-premium/${loggedInUser?.email}`)
                                     .then(res => {
-                                        console.log(res.data);
+                                        // console.log(res.data);
                                     })
-                                console.log("premium not taken");
+                                // console.log("premium not taken");
                             }
                             navigate("/");
                         }

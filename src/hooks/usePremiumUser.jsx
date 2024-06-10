@@ -20,16 +20,16 @@ const usePremiumUser = (email) => {
                             // localStorage.setItem('premium', true);
                             // console.log("premium taken");
                             setIsPremium(true);
-                            console.log("premium taken", isPremium)
+                            // console.log("premium taken", isPremium)
 
                         } else {
                             axiosPublic.put(`update-user-premium/${email}`)
                                 .then(res => {
-                                    console.log(res.data);
+                                    // console.log(res.data);
                                 })
                             // console.log("premium not taken");
                             setIsPremium(false);
-                            console.log("premium not taken", isPremium)
+                            // console.log("premium not taken", isPremium)
                         }
                     }
                 })

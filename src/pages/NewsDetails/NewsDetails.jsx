@@ -56,9 +56,9 @@ const NewsDetails = () => {
             const updateViews = async () => {
                 try {
                     const response = await axiosPublic.put(`news/${_id}`);
-                    console.log('View count updated:', response.data);
+                    // console.log('View count updated:', response.data);
                 } catch (error) {
-                    console.error('Error updating view count', error);
+                    // console.error('Error updating view count', error);
                 }
             };
             updateViews();

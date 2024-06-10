@@ -22,11 +22,11 @@ const Hero = () => {
     useEffect(() => {
         axiosPublic.get('/top-articles')
             .then(response => {
-                console.log('Top articles:', response.data);
+                // console.log('Top articles:', response.data);
                 setTopArticles(response.data);
             })
             .catch(error => {
-                console.error('Error fetching top articles:', error);
+                // console.error('Error fetching top articles:', error);
             });
     }, [axiosPublic]);
 

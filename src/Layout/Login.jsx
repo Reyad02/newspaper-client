@@ -30,14 +30,14 @@ const Login = () => {
                     .then(res => {
                         if (res.data) {
                             if (res.data?.premiumTaken > new Date().toISOString()) {
-                                console.log("premium taken");
+                                // console.log("premium taken");
 
                             } else {
                                 axiosPublic.put(`update-user-premium/${loggedInUser?.email}`)
                                     .then(res => {
-                                        console.log(res.data);
+                                        // console.log(res.data);
                                     })
-                                console.log("premium not taken");
+                                // console.log("premium not taken");
                             }
                         }
                     })
@@ -58,7 +58,7 @@ const Login = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorMessage)
+                // console.log(errorMessage)
                 Swal.fire({
                     position: "center",
                     title: "Error!",
@@ -73,20 +73,20 @@ const Login = () => {
         googleSignIn()
             .then((userCredential) => {
                 const loggedInUser = userCredential.user;
-                console.log(" looged in user ", loggedInUser);
+                // console.log(" looged in user ", loggedInUser);
                 axiosPublic.get(`/user/${loggedInUser?.email}`)
                     .then(res => {
-                        console.log(res);
+                        // console.log(res);
                         if (res.data) {
                             if (res.data?.premiumTaken > new Date().toISOString()) {
-                                console.log("premium taken");
+                                // console.log("premium taken");
 
                             } else {
                                 axiosPublic.put(`update-user-premium/${loggedInUser?.email}`)
                                     .then(res => {
-                                        console.log(res.data);
+                                        // console.log(res.data);
                                     })
-                                console.log("premium not taken");
+                                // console.log("premium not taken");
                             }
                             navigate(location?.state ? location?.state : "/");
                         }
@@ -118,7 +118,7 @@ const Login = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorMessage)
+                // console.log(errorMessage)
             });
     }
     return (

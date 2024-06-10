@@ -50,14 +50,14 @@ const AdminHome = () => {
     useEffect(() => {
         axiosPublic.get('/usersCount')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setTotalUser(res.data);
             })
             .catch(err => console.error(err));
 
         axiosPublic.get('/articles-status-count')
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 const statusData = res.data.reduce((acc, item) => {
                     acc[item._id] = item.count;
                     return acc;

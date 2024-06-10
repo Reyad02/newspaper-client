@@ -224,21 +224,21 @@ const Home = () => {
     useEffect(() => {
         axiosPublic.get('/publishers')
             .then(response => {
-                console.log('Publishers:', response.data);
+                // console.log('Publishers:', response.data);
                 setPublishers(response.data);
             })
             .catch(error => {
-                console.error('Error fetching publishers:', error);
+                // console.error('Error fetching publishers:', error);
             });
 
         axiosPublic.get('/usersCount')
             .then(response => {
-                console.log('Users count:', response.data);
+                // console.log('Users count:', response.data);
                 setUserCount(response.data.totalUsers); // Set the user count
                 setPremiumUsers(response.data.premiumUserCount); // Set the premium users count
             })
             .catch(error => {
-                console.error('Error fetching users count:', error);
+                // console.error('Error fetching users count:', error);
             });
 
         // Set a timeout to show the modal after 10 seconds

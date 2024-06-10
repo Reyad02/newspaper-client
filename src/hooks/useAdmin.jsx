@@ -11,20 +11,20 @@ const useAdmin = (email) => {
         axiosPublic.get(`/admin/${email}`)
             .then(res => {
                 if (res.data.length > 0) {
-                    console.log(email)
+                    // console.log(email)
                     setIsAdmin(true);
                     setAdminLoading(false);
                 }
                 else{
-                    console.log(email)
+                    // console.log(email)
                     setIsAdmin(false);
                     setAdminLoading(true);
                 }
-                console.log(res.data);
+                // console.log(res.data);
                 // console.log("Called");
             })
             .catch(err => {
-                console.error(err);
+                // console.error(err);
                 setIsAdmin(false);
                 setAdminLoading(true);
             });

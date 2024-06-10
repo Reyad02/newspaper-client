@@ -96,7 +96,7 @@ const AuthProvider = ({ children }) => {
                 localStorage.removeItem('access-token');
                 setLoading(false);
             }
-            console.log("current user: ", currentUser);
+            // console.log("current user: ", currentUser);
         });
         return () => {
             unSubscribe();

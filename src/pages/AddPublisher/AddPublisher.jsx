@@ -26,7 +26,7 @@ const AddPublisher = () => {
 
         }).then(res => res.json())
             .then(data => {
-                console.log(data.data.display_url);
+                // console.log(data.data.display_url);
                 const articleInfo = {
                     name: name,
                     photo: data.data.display_url
@@ -51,7 +51,7 @@ const AddPublisher = () => {
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorMessage)
+                // console.log(errorMessage)
             });
     }
 

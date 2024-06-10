@@ -28,7 +28,7 @@ const IndividualPayment = () => {
 
         axiosPublic.post("/create-payment-intent", { price: normalPrice })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setClientSecret(res.data.clientSecret)
             })
     }, [axiosPublic]);
@@ -57,9 +57,9 @@ const IndividualPayment = () => {
         });
 
         if (error) {
-            console.log('[error]', error);
+            // console.log('[error]', error);
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
+            // console.log('[PaymentMethod]', paymentMethod);
         }
 
 
@@ -75,7 +75,7 @@ const IndividualPayment = () => {
         })
 
         if (confirError) {
-            console.log('[error]', confirError);
+            // console.log('[error]', confirError);
         }
         else {
             console.log('[PaymentIntent]', paymentIntent.id);
@@ -86,7 +86,7 @@ const IndividualPayment = () => {
             axiosPublic.put('/update-payment', updateUserInfo)
                 .then(res => {
                     if (res.data.insertedId) {
-                        console.log("Premium added");
+                        // console.log("Premium added");
                         Swal.fire({
                             position: "center",
                             title: "Congrats!",

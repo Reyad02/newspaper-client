@@ -8,7 +8,7 @@ const Navbar = () => {
     const { user, loading, logOut } = useContext(AuthContext);
     const { isPremium } = usePremiumUser(user?.email);
     const [isAdmin, adminLoading] = useAdmin(user?.email);
-    console.log("isAdmin", isAdmin);
+    // console.log("isAdmin", isAdmin);
 
     // const [isAdmin, adminLoading] = useAdmin(user?.email);
     // console.log(isAdmin);

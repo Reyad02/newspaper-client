@@ -30,7 +30,7 @@ const AllArticle = () => {
 
     const getValuefromPublish = e => {
         const searchQuery = e.target.value;
-        console.log(searchQuery);
+        // console.log(searchQuery);
         axiosPublic.get('/getRecentQueries', {
             params: {
                 getPublishQuery: searchQuery
@@ -40,13 +40,13 @@ const AllArticle = () => {
                 setSearchedArticles(response.data);
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
     }
 
     const getValuefromTags = e => {
         const getTagQuery = e.target.value;
-        console.log(getTagQuery);
+        // console.log(getTagQuery);
         axiosPublic.get('/getRecentQueries', {
             params: {
                 getTagQueries: getTagQuery
@@ -56,7 +56,7 @@ const AllArticle = () => {
                 setSearchedArticles(response.data);
             })
             .catch(function (error) {
-                console.log(error);
+                // console.log(error);
             });
     }
 

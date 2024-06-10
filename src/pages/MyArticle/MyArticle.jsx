@@ -14,20 +14,20 @@ const MyArticle = () => {
     // console.log(allArticles)
     const { user } = useContext(AuthContext);
     const { email } = useParams(); // Get the email from the URL params
-    console.log("params emAIL", email)
+    // console.log("params emAIL", email)
 
     const handleDelete = (id) => {
         // console.log(id);
         axiosPublic.delete(`/delete-article/${id}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 const filterArticles = myArticles.filter(article => article._id !== id);
                 setMyArticles(filterArticles);
             })
     }
 
     const handleDecline = (reason) => {
-        console.log(reason);
+        // console.log(reason);
         setDeclineReason(reason);
         document.getElementById('my_modal_2').showModal()
     }
@@ -35,11 +35,11 @@ const MyArticle = () => {
     useEffect(() => {
         axiosSecure.get(`/my-articles/${email}`)
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setMyArticles(res.data);
             })
             .catch(err => {
-                console.error('Failed to fetch articles:', err);
+                // console.error('Failed to fetch articles:', err);
             });
 
     }, [axiosSecure, email])
