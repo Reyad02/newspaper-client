@@ -4,12 +4,15 @@ import { AuthContext } from "../../provider/AuthProvider";
 import { axiosPublic } from "../../hooks/useAxiosPublic";
 import NewsCard from "../Shared/NewsCard/NewsCard";
 import NewsPremCard from "../Shared/Components/NewsPremCard/NewsPremCard";
+import { useNavigate } from "react-router-dom";
 
 const PremiumArticle = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const { isPremium } = usePremiumUser(user?.email);
     const [premiumArticles, setPremiumArticles] = useState([]);
     const [premiumAuthors, setPremiumAuthors] = useState([]);
+    const navigate = useNavigate();
+
 
     const getValuefromPublish = e => {
         const searchQuery = e.target.value;
@@ -28,6 +31,11 @@ const PremiumArticle = () => {
     }
 
     useEffect(() => {
+        if (!isPremium) {
+            logOut();
+            navigate("/login")
+
+        }
         axiosPublic.get("/premiumArticles")
             .then(res => {
                 setPremiumArticles(res.data);

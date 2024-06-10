@@ -16,8 +16,21 @@ const Navbar = () => {
 
     const navlinks = <>
         <li><NavLink to={"/"}>Home</NavLink></li>
-        <li><NavLink to={"addArticle"}>Add Articles</NavLink></li>
         <li><NavLink to={"allArticles"}>All Articles</NavLink></li>
+        {
+            user && <>
+                <li><NavLink to={"addArticle"}>Add Articles</NavLink></li>
+                <li><NavLink to={"individual-Subscription"}>Subscription</NavLink></li>
+                {
+                    isAdmin && <li><NavLink to={"/admin/adminHome"}>Dashboard</NavLink></li>
+                }
+                <li><NavLink to={`my-article/${user?.email}`}>My Articles</NavLink></li>
+                {
+                    isPremium && <li><NavLink to={"premium-individual"}>Premium Article</NavLink></li>
+                }
+            </>
+        }
+        {/* <li><NavLink to={"addArticle"}>Add Articles</NavLink></li>
         <li><NavLink to={"individual-Subscription"}>Subscription</NavLink></li>
         {
             isAdmin && <li><NavLink to={"/admin/adminHome"}>Dashboard</NavLink></li>
@@ -25,7 +38,7 @@ const Navbar = () => {
         <li><NavLink to={`my-article/${user?.email}`}>My Articles</NavLink></li>
         {
             isPremium && <li><NavLink to={"premium-individual"}>Premium Article</NavLink></li>
-        }
+        } */}
     </>
     return (
         <div className="navbar bg-base-100 max-w-7xl mx-auto">

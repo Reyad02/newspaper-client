@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import useAxiosPublic from "./useAxiosPublic";
+import useAxiosSecure from './useAxiosSecure';
 
 const usePremiumUser = (email) => {
     const [isPremium, setIsPremium] = useState(null);
     // const [loading, setLoading] = useState(true);
     // const [error, setError] = useState(null);
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         if (!email) return;
 
         const fetchUserData = () => {
-            axiosPublic.get(`/user/${email}`) //get user by email
+            axiosSecure.get(`/user/${email}`) //get user by email
                 .then(res => {
                     if (res.data) {
                         if (res.data?.premiumTaken > new Date().toISOString()) {

@@ -21,6 +21,7 @@ import AdminArticles from "../pages/AdminArticles/AdminArticles";
 import AddPublisher from "../pages/AddPublisher/AddPublisher";
 import UserPage from "../pages/UserPage/UserPage";
 import AdminHome from "../pages/AdminHome/AdminHome";
+import ErrorElement from "../error/ErrorElement";
 
 
 
@@ -29,6 +30,7 @@ export const router = createBrowserRouter(
         {
             path: "/",
             element: <Main></Main>,
+            errorElement: <ErrorElement></ErrorElement>,
             children: [
                 {
                     path: "/",
@@ -66,7 +68,7 @@ export const router = createBrowserRouter(
                 {
                     path: "my-article/:email",
                     element: <PrivateRoute><MyArticle></MyArticle></PrivateRoute>,
-                    loader: ({ params }) => fetch(`http://localhost:5000/my-articles/${params.email}`),
+                    // loader: ({ params }) => fetch(`http://localhost:5000/my-articles/${params.email}`),
                 },
                 {
                     path: "my-article/:email/details/:id",

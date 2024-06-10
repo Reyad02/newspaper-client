@@ -63,7 +63,7 @@ const AuthProvider = ({ children }) => {
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser);
-            setLoading(false);
+            // setLoading(false);
 
             // if (currentUser) {
             //     axiosPublic.get(`/user/${currentUser.email}`) //get user by email
@@ -82,21 +82,20 @@ const AuthProvider = ({ children }) => {
 
             // }
 
-            // if (currentUser) {
-            //     const userInfo = { email: currentUser.email }
-            //     axiosPublic.post('/jwt', userInfo)
-            //         .then(res => {
-            //             if (res.data.token) {
-            //                 localStorage.setItem('access-token', res.data.token)
-            //                 setLoading(false);
-            //             }
-            //         })
-            // } else {
-            //     //do something 
-            //     localStorage.removeItem('access-token');
-            //     setLoading(false);
+            if (currentUser) {
+                const userInfo = { email: currentUser.email }
 
-            // }
+                axiosPublic.post('/jwt', userInfo)
+                    .then(res => {
+                        if (res.data.token) {
+                            localStorage.setItem('access-token', res.data.token)
+                            setLoading(false);
+                        }
+                    })
+            } else {
+                localStorage.removeItem('access-token');
+                setLoading(false);
+            }
             console.log("current user: ", currentUser);
         });
         return () => {

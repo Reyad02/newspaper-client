@@ -59,6 +59,13 @@ const Login = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage)
+                Swal.fire({
+                    position: "center",
+                    title: "Error!",
+                    text: errorMessage,
+                    icon: "error",
+                    timer: 1500
+                });
             });
     }
 

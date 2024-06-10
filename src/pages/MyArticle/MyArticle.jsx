@@ -1,13 +1,19 @@
-import { useEffect, useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { AuthContext } from "../../provider/AuthProvider";
 
 const MyArticle = () => {
     const [myArticles, setMyArticles] = useState([])
-    const allArticles = useLoaderData();
+    // const allArticles = useLoaderData();
     const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
     const [declineReason, setDeclineReason] = useState("");
-    console.log(allArticles)
+    // console.log(allArticles)
+    const { user } = useContext(AuthContext);
+    const { email } = useParams(); // Get the email from the URL params
+    console.log("params emAIL", email)
 
     const handleDelete = (id) => {
         // console.log(id);
@@ -26,9 +32,16 @@ const MyArticle = () => {
     }
 
     useEffect(() => {
+        axiosSecure.get(`/my-articles/${email}`)
+            .then(res => {
+                console.log(res.data);
+                setMyArticles(res.data);
+            })
+            .catch(err => {
+                console.error('Failed to fetch articles:', err);
+            });
 
-        setMyArticles(allArticles);
-    }, [allArticles])
+    }, [axiosSecure, email])
     return (
         <div className="max-w-7xl mx-auto">
             <div className="overflow-x-auto">

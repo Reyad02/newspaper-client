@@ -10,6 +10,27 @@ const Signup = () => {
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
 
+    const validatePassword = (password) => {
+        const minLength = /.{6,}/;
+        const capitalLetter = /[A-Z]/;
+        const specialCharacter = /[!@#$%^&*(),.?":{}|<>]/;
+        const numericCharacter = /[0-9]/;
+
+        if (!minLength.test(password)) {
+            return "Password must be at least 6 characters long.";
+        }
+        if (!capitalLetter.test(password)) {
+            return "Password must contain at least one capital letter.";
+        }
+        if (!specialCharacter.test(password)) {
+            return "Password must contain at least one special character.";
+        }
+        if (!numericCharacter.test(password)) {
+            return "Password must contain at least one numeric character.";
+        }
+        return null; // No errors
+    };
+
     const handleForm = e => {
         e.preventDefault();
         const form = e.target;
@@ -17,6 +38,17 @@ const Signup = () => {
         const email = form.email.value;
         const password = form.password.value;
         const imageFile = form.photo.files[0];
+        const validationError = validatePassword(password);
+        if (validationError) {
+            Swal.fire({
+                position: "center",
+                title: "Invalid Password",
+                text: validationError,
+                icon: "error",
+                timer: 3000
+            });
+            return; // Stop the form submission
+        }
         const formData = new FormData();
         formData.append('image', imageFile);
 
