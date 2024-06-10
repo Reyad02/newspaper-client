@@ -3,6 +3,7 @@ import { Link, useLoaderData, useParams } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { AuthContext } from "../../provider/AuthProvider";
+import { Helmet } from "react-helmet-async";
 
 const MyArticle = () => {
     const [myArticles, setMyArticles] = useState([])
@@ -44,6 +45,9 @@ const MyArticle = () => {
     }, [axiosSecure, email])
     return (
         <div className="max-w-7xl mx-auto">
+            <Helmet>
+                <title>24NEWS | My Article</title>
+            </Helmet>
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}

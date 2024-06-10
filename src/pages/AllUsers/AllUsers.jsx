@@ -1,6 +1,7 @@
 import { useLoaderData } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const AllUsers = () => {
     const users = useLoaderData();
@@ -35,6 +36,9 @@ const AllUsers = () => {
 
     return (
         <div className=" mx-auto">
+            <Helmet>
+                <title>24NEWS | All Users</title>
+            </Helmet>
             <div className="overflow-x-auto">
                 <table className="table  md:mt-0">
                     <thead>

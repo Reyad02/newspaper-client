@@ -9,6 +9,7 @@ import auth from '../../firebase/firebase.config';
 import { AuthContext } from '../../provider/AuthProvider';
 import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import usePremiumUser from '../../hooks/usePremiumUser';
+import { Helmet } from 'react-helmet-async';
 
 const AddArticle = () => {
     const publisher = useLoaderData();
@@ -203,6 +204,9 @@ const AddArticle = () => {
 
     return (
         <div className='mx-auto max-w-7xl'>
+              <Helmet>
+                    <title>24NEWS | Add Article</title>
+                </Helmet>
             {
                 canWrite ? <form className="card-body" onSubmit={handleAddArticle}>
                     <div className="form-control">

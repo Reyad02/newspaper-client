@@ -5,6 +5,7 @@ import { axiosPublic } from "../../hooks/useAxiosPublic";
 import NewsCard from "../Shared/NewsCard/NewsCard";
 import NewsPremCard from "../Shared/Components/NewsPremCard/NewsPremCard";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const PremiumArticle = () => {
     const { user, logOut } = useContext(AuthContext);
@@ -80,6 +81,9 @@ const PremiumArticle = () => {
     if (premiumState) {
         return (
             <div className="max-w-7xl mx-auto">
+                <Helmet>
+                    <title>24NEWS | Premium Article</title>
+                </Helmet>
                 <div className="flex gap-10 justify-center mb-4 items-center">
                     <span className="text-lg">Author</span>
                     <select name="publisher" id="publisher" onInput={getValuefromPublish} className="p-2 rounded-lg bg-base-100 border dropdown text-base input input-bordered" required>
@@ -103,6 +107,9 @@ const PremiumArticle = () => {
         // logOut();
         return (
             <div className="max-w-7xl mx-auto">
+                  <Helmet>
+                    <title>24NEWS | Premium Article</title>
+                </Helmet>
                 <h1 className="text-center text-4xl">You are not a premium user</h1>
             </div>
         )

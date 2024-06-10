@@ -208,6 +208,7 @@ import SubscriptionPlan from '../SubscriptionPlan/SubscriptionPlan';
 import CountUp from 'react-countup';
 import Modal from 'react-modal';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 // Set the root element for accessibility purposes
 Modal.setAppElement('#root');
@@ -278,6 +279,9 @@ const Home = () => {
 
     return (
         <div className='space-y-4'>
+            <Helmet>
+                <title>24NEWS | Home</title>
+            </Helmet>
             <Hero />
             <div className='mx-auto max-w-7xl'>
                 <h2 className='text-4xl text-center uppercase font-semibold mt-12 my-4'>Publishers</h2>

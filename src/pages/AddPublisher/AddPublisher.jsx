@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const AddPublisher = () => {
     // const allPublishers = useLoaderData();
@@ -65,6 +66,9 @@ const AddPublisher = () => {
     }, [axiosPublic])
     return (
         <div key={count} className=" flex flex-col lg:flex-row ">
+              <Helmet>
+                    <title>24NEWS | Publisher</title>
+                </Helmet>
             <div className=" bg-base-100 lg:w-1/3 ">
                 <div className="hidden">
                     {count++}

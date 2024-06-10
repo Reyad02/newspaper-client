@@ -2,6 +2,7 @@ import { useLoaderData } from 'react-router-dom';
 import { Chart } from 'react-google-charts';
 import { useEffect, useState } from 'react';
 import { axiosPublic } from '../../hooks/useAxiosPublic';
+import { Helmet } from 'react-helmet-async';
 
 const AdminHome = () => {
     const allPublishers = useLoaderData();
@@ -68,6 +69,9 @@ const AdminHome = () => {
 
     return (
         <div>
+              <Helmet>
+                    <title>24NEWS | Admin Home</title>
+                </Helmet>
             <div className='flex flex-col lg:flex-row md:mr-10 md:mt-10'>
                 <div className='flex-1'>
                     <Chart

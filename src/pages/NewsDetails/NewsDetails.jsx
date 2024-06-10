@@ -43,6 +43,7 @@ import { useContext, useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import { Helmet } from "react-helmet-async";
 
 const NewsDetails = () => {
     const loadNews = useLoaderData();
@@ -66,6 +67,9 @@ const NewsDetails = () => {
 
     return (
         <div className="hero min-h-screen bg-base-200">
+              <Helmet>
+                    <title>24NEWS | News</title>
+                </Helmet>
             <div className="hero-content flex-col lg:flex-row-reverse">
                 <img src={photo} className="max-w-sm rounded-lg shadow-2xl" alt={title} />
                 <div>
