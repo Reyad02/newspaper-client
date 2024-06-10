@@ -7,7 +7,8 @@ import Swal from 'sweetalert2';
 import { useContext, useEffect, useRef, useState } from 'react';
 import auth from '../../firebase/firebase.config';
 import { AuthContext } from '../../provider/AuthProvider';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
+import usePremiumUser from '../../hooks/usePremiumUser';
 
 const AddArticle = () => {
     const publisher = useLoaderData();
@@ -16,6 +17,9 @@ const AddArticle = () => {
     const { user } = useContext(AuthContext);
     const [resetSelect, setResetSelect] = useState(false); // State to reset Select component
     const navigate = useNavigate();
+    // const { isPremium } = usePremiumUser(user?.email);
+    const [isPremium, setIsPremium] = useState(false);
+    const [canWrite, setCanWrite] = useState(false);
 
 
     const colourStyles = {
@@ -132,6 +136,58 @@ const AddArticle = () => {
     // Reset the Select component when reset flag changes
     useEffect(() => {
         let isMounted = true; // Flag to track if component is mounted
+        axiosPublic.get(`/user/${user?.email}`) //get user by email
+            .then(res => {
+                if (res.data) {
+                    if (res.data?.premiumTaken > new Date().toISOString()) {
+                        // localStorage.setItem('premium', true);
+                        // console.log("premium taken");
+                        setIsPremium(true);
+                        setCanWrite(true);
+                        console.log("premium taken", isPremium)
+                    }
+                    else {
+                        setIsPremium(false);
+                        console.log("premium not taken", isPremium)
+                        axiosPublic.get(`/article-writing/${user?.email}`)
+                            .then(res => {
+                                if (res.data.length > 0) {
+                                    setCanWrite(false);
+                                    console.log("You can write article2", isPremium);
+
+                                    // console.log(res.data);
+                                }
+                                else {
+                                    // console.log("You can't write article");
+                                    setCanWrite(true);
+                                    console.log("You can write article3", isPremium);
+
+                                }
+                            })
+                    }
+                }
+            })
+
+        // if (isPremium) {
+        //     console.log("You can write article1", isPremium);
+        //     setCanWrite(true);
+        // } else {
+        //     axiosPublic.get(`/article-writing/${user?.email}`)
+        //         .then(res => {
+        //             if (res.data.length > 0) {
+        //                 setCanWrite(false);
+        //                 console.log("You can write article2", isPremium);
+
+        //                 // console.log(res.data);
+        //             }
+        //             else {
+        //                 // console.log("You can't write article");
+        //                 setCanWrite(true);
+        //                 console.log("You can write article3", isPremium);
+
+        //             }
+        //         })
+        // }
 
         if (resetSelect && isMounted) {
             setSelectedTags([]); // Reset the Select component
@@ -141,63 +197,72 @@ const AddArticle = () => {
         return () => {
             isMounted = false; // Set the flag to false when component is unmounted
         };
-    }, [resetSelect]);
+    }, [axiosPublic, isPremium, resetSelect, user?.email]);
 
 
 
     return (
         <div className='mx-auto max-w-7xl'>
-            <form className="card-body" onSubmit={handleAddArticle}>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Title</span>
-                    </label>
-                    <input type="text" name="title" placeholder="Title" className="input input-bordered" required />
-                </div>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Photo</span>
-                    </label>
-                    <input type="file" name="photo" className=" " required />
-                </div>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Publisher</span>
-                    </label>
-                    <select name="publisher" id="publisher" className="p-2 rounded-lg bg-base-100 border dropdown text-base input input-bordered" required>
-                        {
-                            publisher.map(p => <option key={p._id} value={p.name}>{p.name}</option>)
-                        }
-                    </select>
-                </div>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Tags</span>
-                    </label>
-                    <Select
-                        isMulti
-                        name="colors"
-                        options={colourOptions}
-                        className="basic-multi-select "
-                        classNamePrefix="select"
-                        styles={colourStyles}
-                        onChange={(selected) => {
-                            setSelectedTags(selected);
-                            setResetSelect(false); // Set reset flag to false when selection changes
-                        }}
-                        required
-                    />
-                </div>
-                <div className="form-control">
-                    <label className="label">
-                        <span className="label-text">Description</span>
-                    </label>
-                    <textarea placeholder="Description" name="description" className="textarea textarea-bordered"></textarea>
-                </div>
-                <div className="form-control mt-6">
-                    <button className="btn btn-primary">Add News</button>
-                </div>
-            </form>
+            {
+                canWrite ? <form className="card-body" onSubmit={handleAddArticle}>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Title</span>
+                        </label>
+                        <input type="text" name="title" placeholder="Title" className="input input-bordered" required />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Photo</span>
+                        </label>
+                        <input type="file" name="photo" className=" " required />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Publisher</span>
+                        </label>
+                        <select name="publisher" id="publisher" className="p-2 rounded-lg bg-base-100 border dropdown text-base input input-bordered" required>
+                            {
+                                publisher.map(p => <option key={p._id} value={p.name}>{p.name}</option>)
+                            }
+                        </select>
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Tags</span>
+                        </label>
+                        <Select
+                            isMulti
+                            name="colors"
+                            options={colourOptions}
+                            className="basic-multi-select "
+                            classNamePrefix="select"
+                            styles={colourStyles}
+                            onChange={(selected) => {
+                                setSelectedTags(selected);
+                                setResetSelect(false); // Set reset flag to false when selection changes
+                            }}
+                            required
+                        />
+                    </div>
+                    <div className="form-control">
+                        <label className="label">
+                            <span className="label-text">Description</span>
+                        </label>
+                        <textarea placeholder="Description" name="description" className="textarea textarea-bordered"></textarea>
+                    </div>
+                    <div className="form-control mt-6">
+                        <button className="btn btn-primary">Add News</button>
+                    </div>
+                </form>
+                    :
+                    <div className="card-body">
+                        <h1 className="text-2xl font-bold text-center">You have already written one article. To write more article take a <Link className='text-blue-300' to={"/individual-Subscription"}>membership</Link> and join with us!!!</h1>
+
+                    </div>
+
+            }
+
         </div>
     );
 };

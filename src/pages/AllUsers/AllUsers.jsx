@@ -6,7 +6,15 @@ const AllUsers = () => {
     const users = useLoaderData();
     const axiosPublic = useAxiosPublic();
     const [allUsers, setAllusers] = useState([])
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
 
+
+    const fetchUsers = async (page = 1) => {
+        const response = await axiosPublic.get(`/admin-users?page=${page}&limit=5`);
+        setAllusers(response.data.users);
+        setTotalPages(response.data.totalPages);
+    };
 
     // console.log(users);
 
@@ -17,20 +25,18 @@ const AllUsers = () => {
                 setAllusers(prevUsers => prevUsers.map(user =>
                     user._id === id ? { ...user, role: 'admin' } : user
                 ));
-                // setAllusers(users)
             })
     }
 
     useEffect(() => {
-        setAllusers(users);
-    }, [users]);
+        fetchUsers(page);
+    }, [page]);
 
 
     return (
         <div className=" mx-auto">
             <div className="overflow-x-auto">
                 <table className="table  md:mt-0">
-                    {/* head */}
                     <thead>
                         <tr>
                             <th>Photo</th>
@@ -40,7 +46,6 @@ const AllUsers = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {/* row 1 */}
                         {
                             allUsers.map(user => {
                                 return (
@@ -75,6 +80,19 @@ const AllUsers = () => {
 
                     </tbody>
                 </table>
+            </div>
+            <div className="flex justify-center my-8">
+                <div className="join">
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            className={`join-item btn ${page === index + 1 ? "btn-active" : ""}`}
+                            onClick={() => setPage(index + 1)}
+                        >
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </div>
         </div>
     );

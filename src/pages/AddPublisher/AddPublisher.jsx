@@ -64,14 +64,14 @@ const AddPublisher = () => {
         // setPublishers(allPublishers);
     }, [axiosPublic])
     return (
-        <div key={count} className="">
-            <div className="hero bg-base-100">
+        <div key={count} className=" flex flex-col lg:flex-row ">
+            <div className=" bg-base-100 lg:w-1/3 ">
                 <div className="hidden">
                     {count++}
                 </div>
-                <div className=" md:hero-content flex-col lg:flex-row-reverse">
-                    <div className="card shrink-0 shadow-2xl bg-base-100">
-                        <form className="px-4 md:px-0 md:card-body" onSubmit={handlePublisher}>
+                <div className=" md: flex-col lg:flex-row-reverse">
+                    <div className="card shrink-0 shadow-2xl bg-base-100 md:px-10">
+                        <form className="px-4 md:px-0 md:card-body " onSubmit={handlePublisher}>
                             <h1 className="text-3xl font-semibold uppercase text-center">Publisher</h1>
                             <div className="form-control">
                                 <label className="label">
@@ -84,9 +84,6 @@ const AddPublisher = () => {
                                     <span className="label-text">Photo</span>
                                 </label>
                                 <input type="file" className="input" required />
-                                {/* {
-                                    <p>Publishers length  {publishers.length}</p>
-                                } */}
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Save</button>
@@ -95,20 +92,30 @@ const AddPublisher = () => {
                     </div>
                 </div>
             </div>
-            <div  className="card shadow-2xl max-w-5xl mx-auto bg-base-100">
-                {publishers.map((publisher) => (
-                    <div className="card-body " key={publisher._id}>
-                        <div className="flex justify-between">
-                            <div>
-                                <h1 className="">{publisher.name}</h1>
-                            </div>
-                            <div>
-                                <img src={publisher.photo} alt={publisher.name} className="w-10" />
-                            </div>
-                        </div>
-                    </div>
-                ))}
+
+            <div className=" lg:w-2/3 shadow-2xl mx-auto flex justify-center bg-base-100">
+                <div className="overflow-x-auto ">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th>Publisher Name</th>
+                                <th>Photo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {publishers.map((publisher) => (
+                                <tr key={publisher._id}>
+                                    <td className="border">{publisher.name}</td>
+                                    <td className="border">
+                                        <img src={publisher.photo} alt={publisher.name} className="w-10" />
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
     );
 };

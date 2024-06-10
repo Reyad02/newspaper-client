@@ -108,12 +108,12 @@ export const router = createBrowserRouter(
                 {
                     path: "allUsers",
                     element: <AdminPrivateRoute><AllUsers></AllUsers></AdminPrivateRoute>,
-                    loader: () => fetch('http://localhost:5000/users')
+                    // loader: () => fetch('http://localhost:5000/users')
                 },
                 {
                     path: "articles",
                     element: <AdminPrivateRoute><AdminArticles></AdminArticles></AdminPrivateRoute>,
-                    loader: () => fetch('http://localhost:5000/all-articles')
+                    // loader: () => fetch('http://localhost:5000/all-articles')
                 },
                 {
                     path: "publish",
